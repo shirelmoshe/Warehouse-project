@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import "./CreateCategory.css";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import './CreateCategory.css';
+import {useCreateCategoryMutation} from '../../../server/product'; 
+
+
 
 const schema = z.object({
   categoryName: z.string().min(3, { message: 'Category Name must be at least 3 characters' }),
   description: z.string().min(20, { message: 'Description must be at least 20 characters' }).max(50, { message: 'The description cannot be more than 50 characters' }),
-  image: z.string().url({ message: 'Invalid image URL' }).optional(), 
+  image: z.string().url({ message: 'Invalid image URL' }).optional(),
 });
 
 type FormData = {
@@ -16,32 +19,25 @@ type FormData = {
   image: string;
 };
 
-export const CreateCategory = () => {
+const CreateCategory = () => {
   const {
-    register,
     handleSubmit,
     formState: { errors },
     setValue,
+    register,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const [uploadOption, setUploadOption] = useState<"file" | "link">("file");
 
-  const onSubmit = async (data: FormData) => {
-    try {
-  
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-     
-      console.log("Category created successfully!");
-    } catch (error) {
-      
-      console.error("Error creating category:", error);
-    }
-  };
+  const createCategoryMutation = useCreateCategoryMutation(); 
 
   const handleOptionChange = (option: "file" | "link") => {
     setUploadOption(option);
-    setValue("image", ""); 
+    setValue('image', ''); 
+  };
+
+  const onSubmit = (data: FormData) => {
+    createCategoryMutation.mutate(data);
   };
 
   return (
@@ -59,39 +55,50 @@ export const CreateCategory = () => {
               <p className="error-message">{errors.description.message}</p>
             )}
 
-            <div className="image-input">
-              <label>Upload Image:</label>
-              <input
-                type={uploadOption === "file" ? "file" : "text"}
-                {...register('image')}
-                className="input-field"
-                disabled={uploadOption === "link"}
-              />
-            </div>
+            {uploadOption === 'file' ? (
+              <div className="image-input">
+                <label>Upload Image:</label>
+                <input
+                  type="file"
+                  {...register('image')}
+                  id="image"
+                  className="input-field"
+                />
+              </div>
+            ) : (
+              <div className="image-input">
+                <label>Image URL:</label>
+                <input
+                  type="text"
+                  {...register('image')}
+                  id="image"
+                  className="input-field"
+                />
+              </div>
+            )}
 
-        
             <div className="image-option">
               <label>
                 <input
                   type="radio"
                   value="file"
-                  checked={uploadOption === "file"}
-                  onChange={() => handleOptionChange("file")}
+                  checked={uploadOption === 'file'}
+                  onChange={() => handleOptionChange('file')}
                 />
                 Upload from Computer
               </label>
+
               <label>
                 <input
                   type="radio"
                   value="link"
-                  checked={uploadOption === "link"}
-                  onChange={() => handleOptionChange("link")}
+                  checked={uploadOption === 'link'}
+                  onChange={() => handleOptionChange('link')}
                 />
                 Upload from Link
               </label>
             </div>
 
-         
             <button type="submit" className="submit-btn">
               Submit
             </button>
@@ -101,3 +108,5 @@ export const CreateCategory = () => {
     </div>
   );
 };
+
+export default CreateCategory;

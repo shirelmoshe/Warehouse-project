@@ -1,0 +1,42 @@
+/* UserSearch.css */
+
+.user-search {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .user-search-input {
+    flex: 1;
+    height: 100%;
+    padding: 0 20px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    background: transparent;
+  }
+  
+  .user-search-button {
+    width: 120px;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: #fbb8c9;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0 30px 30px 0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .user-search-button:hover {
+    background-color: #fbb8c9;
+  }
+  

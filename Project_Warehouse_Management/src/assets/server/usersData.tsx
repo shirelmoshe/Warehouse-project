@@ -1,6 +1,10 @@
 import { User } from "../interfaces/User/User";
 
 export const fetchUsers = async (): Promise<User[]> => {
+  // Simulate an API call with a delay
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+
 
     const usersData: User[] = [
       { id: 1, name: 'John Doe', email: 'john@example.com' },

@@ -44,7 +44,7 @@ const ProductManagement = () => {
                 description={product.description}
               />
               <p className="card_price">${product.price.toFixed(2)}</p>
-              <Link to="/create-product" className="create-product-link">
+              <Link to="/add-product" className="create-product-link">
         Add Product
       </Link>
             </Card>
@@ -52,7 +52,7 @@ const ProductManagement = () => {
         ))}
       </div>
 
-      <Link to="/add-product" className="create-product-link">
+      <Link to="/create-product" className="create-product-link">
         Add New Product
       </Link>
     </div>

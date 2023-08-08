@@ -1,19 +1,24 @@
 import React from 'react';
 import CategoryManagement from "../components/Page/CategoryManagement/CategoryManagement";
-import CreateProduct from "../components/Page/CreateProduct/CreateProduct";
-
 import OrderManagement from "../components/Page/OrderManagement/OrderManagement";
-import ProductManagement from "../components/Page/ProductManagement/ProductManagement";
 import UserTable from "../components/Page/UserTable/UserTable";
-import { CreateCategory } from '../components/Page/CreateCategory/CreateCategory';
-import { AddingProduct } from '../components/Page/AddingProduct/AddingProduct';
-
 import HomePage from '../components/Page/HomePage/HomePage';
+import { InventoryLevelsReport } from '../components/Page/Reports & Analytic/Reports';
+import CreateCategory from '../components/Page/CreateCategory/CreateCategory';
+import OrderHistory from '../components/Page/OrderDetailsUser/OrderHistory';
+import CreateProduct from '../components/Page/CreateProduct/CreateProduct';
+import AddingProduct from '../components/Page/AddingProduct/AddingProduct';
+import ProductManagement from '../components/Page/ProductManagement/ProductManagement';
+
+
+
+
+
 
 export const routes = {
   home: {
     path: '/',
-    element: <HomePage />,
+    element: <OrderHistory />,
   },
   categoryManagement: {
     path: '/categories',
@@ -33,8 +38,9 @@ export const routes = {
   },
   createProduct: {
     path: '/create-product',
-    element: <CreateProduct />,
+    element: <CreateProduct/>,
   },
+
   createCategory: {
     path: '/create-category',
     element: <CreateCategory />,
@@ -43,8 +49,13 @@ export const routes = {
     path: '/add-product',
     element: <AddingProduct />,
   },
-  SalesDashboard: {
+  salesDashboard: {
     path: '/sales-dashboard',
     element: <HomePage />,
   },
+  reports: {
+    path: '/reports',
+    element: <InventoryLevelsReport/>,
+  },
+
 };

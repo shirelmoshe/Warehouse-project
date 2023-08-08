@@ -1,4 +1,3 @@
-// UserTable.tsx
 import React, { useEffect, useState } from 'react';
 import { Table, Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
@@ -12,8 +11,16 @@ const UserTable: React.FC = () => {
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [filterText, setFilterText] = useState<string>('');
 
+  const applyFilter = (data: User[], searchText: string) => {
+    const filterValue = searchText.toLowerCase();
+    return data.filter(
+      (user) =>
+        user.name.toLowerCase().includes(filterValue) ||
+        user.email.toLowerCase().includes(filterValue)
+    );
+  };
+
   useEffect(() => {
-   
     const fetchUsersData = async () => {
       const usersData = await fetchUsers();
       setUsers(usersData);
@@ -22,32 +29,26 @@ const UserTable: React.FC = () => {
   }, []);
 
   useEffect(() => {
-  
-    const filtered = users.filter((user) => {
-      const filterValue = filterText.toLowerCase();
-      const nameMatch = user.name.toLowerCase().includes(filterValue);
-      const emailMatch = user.email.toLowerCase().includes(filterValue);
-      return nameMatch || emailMatch;
-    });
+    const filtered = applyFilter(users, filterText);
     setFilteredUsers(filtered);
   }, [users, filterText]);
 
   return (
     <div className="table-container">
-    
-        <div className={`search-container`}>
-          <Input
-            placeholder="Search by Name or Email"
-            value={filterText}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterText(e.target.value)}
-            prefix={<SearchOutlined />}
-            className="search-input"
-          />
-          <button type="submit" className="search-button">
-            Search
-          </button>
-        </div>
-   
+      <div className={`search-container`}>
+        <Input
+          placeholder="Search by Name or Email"
+          value={filterText}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setFilterText(e.target.value)
+          }
+          prefix={<SearchOutlined />}
+          className="search-input"
+        />
+        <button type="submit" className="search-button">
+          Search
+        </button>
+      </div>
       <Table dataSource={filteredUsers} columns={columns} rowKey="id" />
     </div>
   );

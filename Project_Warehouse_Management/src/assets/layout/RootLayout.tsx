@@ -1,44 +1,25 @@
-import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+
+import { Link, Outlet } from 'react-router-dom';
 import './RootLayout.css';
+import { navigationLinks } from './navigationLinks';
 
-const NavigationBar = () => {
+
+
+export const NavigationBar = () => {
   return (
-    <>
-      <nav className="nav-container">
-        <ul className="nav-list">
-          <li className="nav-item">
-            <Link to="/">Dashboard</Link>
+    <nav className="nav-container">
+      <ul className="nav-list">
+        {navigationLinks.map((link) => (
+          <li key={link.path} className="nav-item">
+            <Link to={link.path}>{link.label}</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/products">Product Management</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/categories">Category Management</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/inventory">Inventory Management</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/order-management">Orders</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/users">User Management</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/reports">Reports & Analytics</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/settings">Settings</Link>
-          </li>
-        </ul>
-      </nav>
-
+        ))}
+      </ul>
       <main>
         <Outlet />
       </main>
-    </>
+    </nav>
   );
 };
 
-export default NavigationBar;
+

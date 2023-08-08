@@ -1,0 +1,31 @@
+/* General styles for the dashboard container */
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Set the height of the container to fill the viewport */
+  }
+  
+  /* Styling for the custom cards */
+  .custom-card {
+    width: 1800px; /* Increase the width to make the cards larger */
+    height: 800px; /* Increase the height to make the cards larger */
+    margin: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+  }
+  
+  /* Styling for the tab content */
+  .custom-card-content {
+    height: 800px; /* Increase the height to make the tab content larger */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  /* Styling for the charts inside the tab content */
+  .custom-card-content .ant-chartjs-renderer {
+    height: 800px; /* Increase the height to make the charts larger */
+    width: 1800px /* Set the width to 100% to make the charts occupy the full width of the card */
+  }
+  
